@@ -6,6 +6,7 @@ require {
         # type initrc_t;
         # class sock_file write;
         # class unix_stream_socket connectto;
+        interface milter_stream_connect_all;
 }
 #============= postfix_smtpd_t ==============
 #allow postfix_smtpd_t initrc_t:unix_stream_socket connectto;
