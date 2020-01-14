@@ -1,14 +1,22 @@
 module postfix_milter_fix 1.0;
+
+interface(`milter_stream_connect_all',`
+	gen_require(`
+		attribute milter_data_type, milter_domains;
+	')
+
+	files_search_pids($1)
+	getattr_dirs_pattern($1, milter_data_type, milter_data_type)
+	stream_connect_pattern($1, milter_data_type, milter_data_type, milter_domains)
+')
+
 require {
         type postfix_smtpd_t;
         type postfix_smtp_t;
         type postfix_cleanup_t;
-        # type initrc_t;
-        # class sock_file write;
-        # class unix_stream_socket connectto;
-        interface milter_stream_connect_all;
 }
-#============= postfix_smtpd_t ==============
+
+#============= postfix_milter_fix ==============
 #allow postfix_smtpd_t initrc_t:unix_stream_socket connectto;
 #allow postfix_smtpd_t postfix_spool_t:sock_file write; 
 milter_stream_connect_all(postfix_smtpd_t)
